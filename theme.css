@@ -1,34 +1,597 @@
-body {
-	--radius-s: 0px;
-	--radius-m: 0px;
-	--radius-l: 0px;
-	--input-radius: 0px;
-	--tab-radius-active: 0px;
-	--checkbox-radius: 0px;
-	--toggle-radius: 0px;
-	--toggle-thumb-radius: 0px;
-	--slider-thumb-radius: 0px;
+/*
+@settings
+name: Antología Theme
+id: antologia
+collapsed: false
+settings:
+	-
+		id: heading-fonts
+		title: Fonts
+		title.es: Fuentes
+		type: heading
+		level: 1
+	-
+		id: text-font
+		title: Text font
+		title.es: Fuente del texto
+		description: It's recommended to install "Atkinson Hyperlegible" to use Legible+
+		description.es: Se recomienda instalar "Atkinson Hyperlegible" para usar Legible+
+		type: class-select
+		allowEmpty: false
+		default: 'text-font-sans'
+		options:
+		-
+			label: Sans-serif
+			value: 'text-font-sans'
+		-
+			label: Serif
+			value: 'text-font-serif'
+		-
+			label: Legible+
+			value: 'text-font-low'
+	-
+		id: heading-font
+		title: Heading font
+		title.es: Fuente de títulos
+		type: class-select
+		allowEmpty: false
+		default: 'heading-font-serif'
+		options:
+		-
+			label: Sans-serif
+			value: 'heading-font-sans'
+		-
+			label: Serif
+			value: 'heading-font-serif'
+	-
+		id: heading-readability
+		title: Enhance legibility
+		title.es: Mejorar legibilidad
+		type: heading
+		level: 1
+	-
+		id: extend-spacing
+		title: Extend character spacing
+		title.es: Extender espaciado de carácteres
+		type: class-toggle
+		default: false
+	-
+		id: justify
+		title: Justify text
+		title.es: Justificar texto
+		type: class-toggle
+		default: false
+	-
+		id: line-spacing
+		title: Line spacing
+		title.es: Espaciado de líneas
+		type: class-select
+		allowEmpty: false
+		default: 'line-spacing-15'
+		options:
+		-
+			label: Tight
+			value: 'line-spacing-1'
+		-
+			label: Regular
+			value: 'line-spacing-115'
+		-
+			label: Normal
+			value: 'line-spacing-15'
+		-
+			label: Semi-expanded
+			value: 'line-spacing-175'
+		-
+			label: Expanded
+			value: 'line-spacing-2'
+		-
+			label: Very Expanded
+			value: 'line-spacing-3'
+	-
+		id: high-contrast-select
+		title: High contrast text selection
+		title.es: Selección de texto en alto contraste
+		description: Selected text will be easier to see
+		description.es: El texto seleccionado será más fácil de ver
+		type: class-toggle
+		default: true
+	-
+		id: heading-line
+		title: Line width
+		title.es: Anchura de línea
+		type: heading
+		level: 2
+	-
+		id: character-width
+		title: Mode
+		title.es: Modo
+		type: class-select
+		allowEmpty: false
+		default: 'character-width-min'
+		options:
+		-
+			label: Disabled
+		-
+			label: At least (Por lo menos)
+			value: 'character-width-min'
+		-
+			label: Exactly (Exactamente)
+			value: 'character-width-exact'
+		-
+			label: At most (A lo máximo)
+			value: 'character-width-max'
+	-
+		id: character-amount
+		title: Character amount
+		title.es: Cantidad de carácteres
+		type: variable-number-slider
+		default: 60
+		min: 40
+		max: 80
+		step: 5
+		format: ch
+	-
+		id: heading-aesthetic
+		title: Aesthetic changes
+		title.es: Cambios estéticos
+		type: heading
+		level: 1
+	-
+		id: heading-italics
+		title: Heading italics
+		title.es: Títulos en cursiva
+		type: class-toggle
+		default: true
+	-
+		id: highlight-colors
+		title: Highlight colours
+		title.es: Colores de resalte
+		type: class-select
+		default: colors-all
+		options:
+		-
+			label: All
+			value: 'colors-all'
+		-
+			label: Some
+			value: 'colors-some'
+		-
+			label: Minimal
+			value: 'colors-minimal'
+		-
+			label: None
+			value: 'colors-none'
+	-
+		id: sticky-navigation
+		title: Sticky navigation section
+		title.es: Sección de Navegación pegajosa
+		description: Navigation section will stick to the top of the screen
+		description.es: La sección de navegación se queda pegada en la parte superior
+		type: class-toggle
+		default: false
+*/
+
+body{
+	--text-normal: var(--color-base-100);
+	--italic-color: var(--color-base-70);
+	--link-decoration: none;
+	--list-indent: 1ch;
+	--nav-item-weight-hover: 600;
+	
+	--h2-font: var(--h1-font);
+	--h3-font: var(--h1-font);
+	--h4-font: var(--h1-font);
+	--h1-color: var(--color-base-60);
+
+	--interactive-accent: var(--text-accent);
+	--interactive-accent-hover: var(--text-accent-hover);
+	/*Markdown*/
+	--link-unresolved-opacity: 50%;
+	--blockquote-border-color: var(--text-accent);
+	--table-border-color: var(--text-faint);
+
+	/* Defaults a.k.a. No style settings*/
+	--font-text-theme: 'Inter', 'Helvetica', sans-serif;
+	--h1-font: 'Georgia', 'Lucida Bright', 'P052', serif;
+
+	--selection-normal:		var(--text-selection);
+	--selection-italic:		var(--text-selection);
+	--selection-h1:			var(--text-selection);
+	--selection-h2:			var(--text-selection);
+	--selection-highlight:	var(--text-selection);
+	--selection-link:		var(--text-selection);
+	--selection-embed:		var(--text-selection);
+	--selection-callout:	var(--text-selection);
 }
 
-.workspace-tab-header.is-active::before, .workspace-tab-header.is-active::after {
+/* SETTINGS */
+
+.text-font-sans{
+	--font-text-theme: 'Inter', 'Helvetica', sans-serif;
+}
+.text-font-serif{
+	--font-text-theme: 'Source Serif Pro', 'Caladea', serif;
+}
+.text-font-low{
+	--font-text-theme: 'Atkinson Hyperlegible', 'Noto Sans', system-ui;
+	--font-interface-theme: var(--font-text-theme);
+}
+.heading-font-sans{
+	--h1-font: var(--font-text-override), 'Reem Kufi', 'Trebuchet MS', 'URW Gothic', sans-serif;
+}
+.heading-font-serif{
+	--h1-font: var(--font-text-override), 'Georgia', 'Lucida Bright', 'P052', serif;
+}
+
+.extend-spacing{
+	letter-spacing: 0.4pt;
+	word-spacing: 0.4pt;
+}
+
+.justify{
+	--align-text: justify;
+}
+
+.line-spacing-1{	--line-height-normal: 1;}
+.line-spacing-115{	--line-height-normal: 1.15;}
+.line-spacing-15{	--line-height-normal: 1.5;}
+.line-spacing-175{	--line-height-normal: 1.75;}
+.line-spacing-2{	--line-height-normal: 2;}
+.line-spacing-3{	--line-height-normal: 3;}
+
+.character-width-min{
+	--file-line-width: max(700px, var(--character-amount));
+	/* ToDo delete when bug is patched */
+	--bug-bc-width: var(--file-line-width);
+}
+.character-width-exact{
+	--file-line-width: var(--character-amount);
+	--bug-bc-width: var(--file-line-width);
+}
+.character-width-max{
+	--file-line-width: min(700px, var(--character-amount));
+	--bug-bc-width: var(--file-line-width);
+}
+
+.sticky-navigation{
+	--nav-mode: sticky;
+	--nav-pos: calc(var(--file-margins) * -1);
+}
+
+/*Todo Make independent of style settings*/
+.heading-italics{
+	--h2-color: var(--italic-color);
+	--h2-style: italic;
+}
+/* THEMES */
+
+.theme-dark{
+	--color-base-00: 	hsl(210, 26%, 12%);
+	--color-base-10: 	hsl(210, 26%, 14%);
+	--color-base-20: 	hsl(214, 25%, 15%);
+	--color-base-25: 	hsl(220, 24%, 16%);
+	--color-base-30: 	hsl(230, 22%, 21%);
+	--color-base-35: 	hsl(245, 20%, 25%);
+	--color-base-40: 	hsl(260, 15%, 33%);
+	--color-base-50: 	hsl(300, 10%, 40%);
+	--color-base-60: 	hsl(350,100%, 60%);
+	--color-base-70: 	hsl(20, 75%, 78%);
+	--color-base-100: 	hsl(40, 50%, 90%);
+
+	--text-accent: hsl(210, 50%, 60%);
+	--link-color: var(--text-accent);
+	--text-accent-hover: hsl(210, 100%, 80%);
+	--link-color-hover: var(--text-accent-hover);
+	--italic-color: hsl(100, 25%, 73%);
+
+	--invert-filter-b: invert() hue-rotate(180deg);
+	--invert-filter-w: none;
+	--diagram-filter-b: invert(0.75) sepia() hue-rotate(-10deg) saturate(0.5);
+	--diagram-filter-w: none;
+
+	/*fixes*/
+	--background-modifier-form-field: var(--color-base-00);
+}
+.theme-light{
+	--color-base-00: hsl(40, 50%, 97%);
+	--color-base-05: hsl(40, 50%, 96%);
+	--color-base-10: hsl(40, 50%, 95%);
+	--color-base-20: hsl(39, 51%, 93%);
+	--color-base-25: hsl(39, 51%, 86%);
+	--color-base-30: hsl(38, 52%, 85%);
+	--color-base-35: hsl(37, 53%, 80%);
+	--color-base-40: hsl(35, 55%, 71%);
+	--color-base-50: hsl(10, 60%, 64%);
+	--color-base-60: hsl(5, 70%, 50%);
+	--color-base-70: hsl(5, 70%, 28%);
+	--color-base-100: hsl(0, 100%, 11%);
+
+	--text-accent: hsl(200, 95%, 40%);
+	--link-color: var(--text-accent);
+	--text-accent-hover: hsl(200, 99%, 30%);
+	--link-color-hover: var(--text-accent-hover);
+	--italic-color: hsl(80, 50%, 32%);
+
+	--invert-filter-b: none;
+	--invert-filter-w: invert() hue-rotate(180deg);
+	--diagram-filter-b: invert(0.2) sepia() hue-rotate(-60deg) saturate(2);
+	--diagram-filter-w: invert();
+}
+
+.colors-none{
+	--italic-color: var(--text-normal);
+	--h2-color: var(--text-normal);
+	--h1-color: var(--text-normal);
+	--link-color: var(--text-normal);
+	--link-decoration: underline;
+	--text-accent-hover: var(--color-base-70);
+
+	--color-red-rgb: 	240, 220, 200;
+	--color-pink-rgb: 	240, 220, 200;
+	--color-purple-rgb: 240, 220, 200;
+	--color-blue-rgb: 	240, 220, 200;
+	--color-cyan-rgb: 	240, 220, 200;
+	--color-green-rgb: 	240, 220, 200;
+	--color-yellow-rgb: 240, 220, 200;
+	--color-orange-rgb: 240, 220, 200;
+}
+.colors-minimal{
+	--italic-color: var(--text-normal);
+	--h1-color: var(--text-normal);
+	--h2-color: var(--text-normal);
+}
+.colors-some{
+	--italic-color: var(--text-normal);
+	--h2-color: var(--text-normal);
+}
+
+.high-contrast-select{
+	--selection-text: var(--background-primary);
+
+	--selection-normal: var(--text-normal);
+	--text-selection: var(--selection-normal);
+	--selection-italic: var(--italic-color);
+	--selection-h1: var(--h1-color);
+	--selection-h2: var(--h2-color);
+	--selection-highlight: var(--color-orange);
+	--selection-link: var(--link-color);
+	--selection-embed: var(--embed-title-color);
+	--selection-callout: var(--callout-color);
+}
+
+/* MARKDOWN */
+
+/* High contrast selection */
+*::selection,
+p::selection, li::selection, th::selection, td::selection, strong::selection{
+	color: var(--selection-text);
+	text-emphasis-color: black;
+}
+em, .cm-em{
+	--text-selection: var(--selection-italic);
+}
+h1, .cm-header-1{
+	--text-selection: var(--selection-h1);
+}
+h2, .cm-header-2{
+	--text-selection: var(--selection-h2);
+}
+mark, .cm-highlight{
+	--text-selection: var(--selection-highlight);
+}
+a, .cm-link, .cm-url, .internal-link, .cm-hmd-internal-link{
+	--text-selection: var(--selection-link);
+}
+.embed-title{
+	/* ToDo implement properly */
+	--text-selection: var(--embed-title-color);
+}
+.callout-title-inner{
+	--text-selection: rgb(var(--callout-color));
+}
+.search-result-file-match:hover{
+	/* Avoid the use of selection colour */
+	background-color: var(--nav-item-background-hover);
+	/* Also c'mon */
+	cursor: pointer;
+}
+
+
+.markdown-preview-section{
+	padding: 0;
+}
+.markdown-rendered ol{
+	/* Make ol numerals readable */
+	--list-marker-color: var(--text-muted);
+}
+
+.footnote-backref{
+	/* Make consistent with footnote link */
+	color: var(--interactive-accent);
+	/* Space slightly*/
+	padding: 0 0.25ch;
+}
+.footnote-backref:hover{
+	color: var(--interactive-accent-hover);
+	font-weight: bold;
+}
+
+.callout{
+	padding: 0;
+}
+.callout-content{
+	padding: 0 var(--size-4-4);
+}
+.callout-content > :first-child{
+	/* Tighten spacing */
+	margin-block-start: var(--size-4-1);
+}
+.callout-content > ul, .callout-content > ol{
+	/*Fix uneven spacing*/
+	padding-inline-start: var(--size-4-5);
+}
+.callout.is-collapsible > .callout-title{
+	cursor: pointer;
+	padding: var(--size-4-2) var(--size-4-4);
+	align-items: center;
+}
+.callout.is-collapsible > .callout-title:hover{
+	background-color: rgba(var(--callout-color), 0.1);
+}
+
+.markdown-embed{
+	/* Timing as variable to share with .embed-title */
+	transition: border var(--transition-time);
+	border-right: dashed white 1px;
+	border-color: var(--embed-title-color);
+	padding: 0 var(--size-4-4);
+	
+	background-color: var(--background-secondary);
+	/* Hover effects */
+	--transition-time: 500ms;
+	--embed-title-color: var(--text-faint);
+}
+.markdown-embed:hover{
+	--transition-time: 100ms;
+	--embed-title-color: var(--text-muted);
+}
+.embed-title, .markdown-embed-link{
+	/* Hover colour */
+	transition: color var(--transition-time);
+	color: var(--embed-title-color);
+}
+.embed-title{
+	font-family: var(--h1-font);
+	font-size: 1.15em;
+	padding: var(--size-4-2) var(--size-4-2) var(--size-4-1) 0;
+}
+.markdown-embed-link{
+	margin: var(--size-4-1) var(--size-4-2) 0 0;
+}
+
+/* APPLY SETTINGS */
+
+.markdown-rendered p,
+.cm-line:not(.HyperMD-header, .HyperMD-footnote){
+	text-align: var(--align-text);
+}
+.markdown-rendered h1, .markdown-rendered h2,
+.markdown-rendered h3, .markdown-rendered h4,
+.markdown-rendered h5, .markdown-rendered h6{
+	/* Fix overwrite in app CSS */
+	letter-spacing: inherit;
+}
+
+/* OUTLINE PLUGIN */
+
+.tree-item-self{
+	font-size: 0.85em;
+}
+.outline > .tree-item > .tree-item-self{
+	font-size: 1rem;
+}
+.nav-file-title:not(.is-active), .tree-item-self.is-clickable{
+	cursor: pointer;
+}
+
+/* BREADCRUMBS PLUGIN */
+
+.BC-trail{
+	border: none;
+	/* Sticky navigation */
+	position: var(--nav-mode);
+	top: var(--nav-pos);
+	background-color: var(--background-primary);
+	/* Fix ordering in editing view */
+	z-index: 1;
+	/* Fix corner peeking */
+	border-radius: 0;
+}
+.BC-trail.is-readable-line-width.markdown-preview-sizer.markdown-preview-section{
+	/* Hella weird bugfix */
+	--file-line-width: 100%;
+	max-width: var(--bug-bc-width);
+}
+.BC-trail-path-container{
+	padding: 1px 2ch;
+}
+.BC-NextPrev-Container{
+	padding: 0 0 0.25em;
+	border-bottom: solid var(--background-modifier-border) 1px;
+}
+.BC-prevs{
+	--background-modifier-border: transparent;
+}
+.internal-link.BC-Link{
+	/*Force pointer*/
+	cursor: pointer;
+	/*Fix discrepancy*/
+	color: var(--link-color);
+}
+.internal-link.BC-Link > strong{
 	display: none;
 }
-
-svg * {
-	stroke-linecap: square;
-	stroke-linejoin: miter;
-	rx: 0;
-	ry: 0;
+.internal-link.BC-Link.BC-prev::before{
+	content: "←";
+}
+.internal-link.BC-Link.BC-next::after{
+	content: "→";
+}
+.BC-trail-sep{
+	font-size: 0;
+}
+.BC-trail-sep::after{
+	font-size: 1rem;
+	content: " \› ";
 }
 
-.menu {
-	padding: var(--size-2-1);
+/*-------- STYLE SETTINGS*/
+
+.setting-item-name {
+	/* Fix overwrite */
+	font-size: inherit;
+}
+.setting-item-heading[data-level="0"] {
+	font-size: 2rem;
+	padding-top: 0;
+	margin-top: 0;
+}
+.setting-item-heading[data-id="antologia"] > .setting-item-info > .setting-item-name::after {
+	margin-left: 1.5ch;
+	font-size: 0.75rem;
+	font-weight: normal;
+	content: "by oqipo";
+}
+.setting-item-heading[data-level="1"] {
+	font-size: 1.5rem;
+}
+.setting-item-heading[data-level="2"] {
+	font-size: 1.1rem;
 }
 
-.menu-item {
-	padding: var(--size-4-1) var(--size-4-2);
+.style-settings-heading[data-level="0"] + .style-settings-container {
+	padding-left: 0;
+}
+.style-settings-container {
+	padding-left: 2ch;
 }
 
-.menu-separator {
-	margin: var(--size-2-1) calc(var(--size-2-1) * -1);
+/* Custom image attributes */
+
+span[src$="#diagramB"], span[src$="#diagram"]{
+	filter: var(--diagram-filter-b);
+}
+span[src$="#diagramW"]{
+	filter: var(--diagram-filter-w);
+}
+span[src$="#invertB"], span[src$="#invert"]{
+	filter: var(--invert-filter-b);
+}
+span[src$="#invertW"]{
+	filter: var(--invert-filter-w);
+}
+span[alt$="center"]{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
