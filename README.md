@@ -40,13 +40,15 @@ or
 
 There's **2** filter types and **4** image filters:
 
-<!-- TODO Add example screenshots -->
-
 - `diagram`: Use for black-and-white diagrams. Same as `diagramB`
 	- `diagramB`: **Black** diagram over white background
 	- `diagramW`: White diagram over **black** background
 - `invert`: Use to invert values of an image. Same as `invertB`
 	- `invertB`: Image has **dark** content over light background
 	- `invertW`: Image has light content over **dark** background
+	
+| ![img](./img/diagram_og.png) |    ![img](./img/diagram_light.png)    |    ![img](./img/diagram_dark.png)    |
+| :--------------------------: | :-----------------------------------: | :----------------------------------: |
+|        Original image        | `[[img.png#diagramB]]` on light theme | `[[img.png#diagramB]]` on dark theme |
 
 <!-- Maybe add center property sometime later -->
