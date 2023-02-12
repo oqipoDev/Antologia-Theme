@@ -26,6 +26,8 @@ General enhancements:
 
 ## Image filters
 
+> WARNING! These are experimental and their names may change with updates
+
 To use a filter add its name in the source:
 
 ```
