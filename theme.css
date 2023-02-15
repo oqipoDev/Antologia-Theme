@@ -181,6 +181,7 @@ body{
 	--h2-font: var(--h1-font);
 	--h3-font: var(--h1-font);
 	--h4-font: var(--h1-font);
+	/* ToDo create special colour property */
 	--h1-color: var(--color-base-60);
 
 	--interactive-accent: var(--text-accent);
@@ -318,6 +319,8 @@ body{
 	--diagram-filter-w: invert();
 }
 
+/* Theming settings */
+
 .colors-none{
 	--italic-color: var(--text-normal);
 	--h2-color: var(--text-normal);
@@ -359,13 +362,13 @@ body{
 	--selection-callout: var(--callout-color);
 }
 
+
 /* MARKDOWN */
 
 /* High contrast selection */
 *::selection,
 p::selection, li::selection, th::selection, td::selection, strong::selection{
 	color: var(--selection-text);
-	text-emphasis-color: black;
 }
 em, .cm-em{
 	--text-selection: var(--selection-italic);
@@ -398,10 +401,11 @@ a, .cm-link, .cm-url, .internal-link, .cm-hmd-internal-link{
 
 
 .markdown-preview-section{
+	/* Tighten spacing */
 	padding: 0;
 }
 .markdown-rendered ol{
-	/* Make ol numerals readable */
+	/* Enhance 'ol' numerals readability */
 	--list-marker-color: var(--text-muted);
 }
 
@@ -427,13 +431,20 @@ a, .cm-link, .cm-url, .internal-link, .cm-hmd-internal-link{
 	margin-block-start: var(--size-4-1);
 }
 .callout-content > ul, .callout-content > ol{
-	/*Fix uneven spacing*/
+	/*Fix bullets and numerals too close to edge*/
 	padding-inline-start: var(--size-4-5);
+}
+.callout > .callout-title{
+	transition: padding 100ms ease-out;
+	/* Bottom-biased vertical spacing */
+	padding: var(--size-4-3) 2ch var(--size-4-1);
+}
+.callout.is-collapsed > .callout-title{
+	/* Even vertical spacing */
+	padding: var(--size-4-2) 2ch;
 }
 .callout.is-collapsible > .callout-title{
 	cursor: pointer;
-	padding: var(--size-4-2) var(--size-4-4);
-	align-items: center;
 }
 .callout.is-collapsible > .callout-title:hover{
 	background-color: rgba(var(--callout-color), 0.1);
@@ -513,6 +524,7 @@ a, .cm-link, .cm-url, .internal-link, .cm-hmd-internal-link{
 	max-width: var(--bug-bc-width);
 }
 .BC-trail-path-container{
+	/* Indent trail */
 	padding: 1px 2ch;
 }
 .BC-NextPrev-Container{
@@ -520,29 +532,70 @@ a, .cm-link, .cm-url, .internal-link, .cm-hmd-internal-link{
 	border-bottom: solid var(--background-modifier-border) 1px;
 }
 .BC-prevs{
+	/* Disable one line to prevent double width */
 	--background-modifier-border: transparent;
 }
 .internal-link.BC-Link{
-	/*Force pointer*/
+	/* Force pointer (sidebar) */
 	cursor: pointer;
 	/*Fix discrepancy*/
 	color: var(--link-color);
 }
-.internal-link.BC-Link > strong{
-	display: none;
-}
-.internal-link.BC-Link.BC-prev::before{
-	content: "←";
-}
-.internal-link.BC-Link.BC-next::after{
-	content: "→";
-}
-.BC-trail-sep{
-	font-size: 0;
-}
+
+/* Replace "prev" and "next" with dingbats */
+.internal-link.BC-Link > strong{ display: none; }
+.internal-link.BC-Link.BC-prev::before{ content: "←"; }
+.internal-link.BC-Link.BC-next::after{ content: "→"; }
+
+/* Replace trail dingbats */
+.BC-trail-sep{ font-size: 0; }
 .BC-trail-sep::after{
 	font-size: 1rem;
 	content: " \› ";
+}
+
+/* Re-style matrix view */
+.BC-Matrix.markdown-preview-view.svelte-1p44ezg.svelte-1p44ezg{
+	padding: 0;
+}
+div.BC-Matrix.svelte-1p44ezg > div.svelte-1p44ezg{
+	border: none;
+	margin: 0;
+}
+div.BC-Matrix-square.svelte-1p44ezg.svelte-1p44ezg{
+	border: none;
+}
+.BC-Matrix-header.svelte-1p44ezg{
+	font-size: 0.85rem;
+	font-weight: 600;
+}
+h4.BC-Matrix-header.svelte-1p44ezg.svelte-1p44ezg,
+h6.BC-Matrix-header.svelte-1p44ezg.svelte-1p44ezg{
+	font-family: var(--font-interface);
+	padding: 0 var(--size-4-1);
+	pointer-events: none;
+}
+h6.BC-Matrix-header.svelte-1p44ezg.svelte-1p44ezg{
+	font-weight: normal;
+	color: var(--text-faint);
+}
+div > ol.svelte-1p44ezg.svelte-1p44ezg{
+	padding: 0;
+}
+ol.svelte-1p44ezg > li.svelte-1p44ezg.svelte-1p44ezg{
+	margin: 0;
+}
+li.svelte-1p44ezg.svelte-1p44ezg::marker{
+	font-size: 0;
+}
+.internal-link.BC-Link.svelte-1p44ezg{
+	padding: 0.15rem 1ch;
+	font-size: 0.80rem;
+	color: var(--text-normal);
+	border-radius: var(--radius-s);
+}
+.internal-link.BC-Link.svelte-1p44ezg:hover{
+	background-color: var(--background-modifier-hover);
 }
 
 /*-------- STYLE SETTINGS*/
